@@ -1,0 +1,2430 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MYP Design Rubric · Interactive Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Base */
+  --bg: #FAFAF8;
+  --bg-elevated: #FFFFFF;
+  --bg-subtle: #F0EFEC;
+  --text: #1A1A1A;
+  --text-secondary: #5C5C5C;
+  --text-muted: #8A8A8A;
+  --border: #E0DFDC;
+  --border-subtle: #EEEDEB;
+  --shadow: 0 2px 12px rgba(0,0,0,0.06);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.08);
+  --radius: 14px;
+  --radius-sm: 8px;
+
+  /* Criterion Colors */
+  --cri-a: #5BB8F5;
+  --cri-a-bg: #5BB8F520;
+  --cri-a-glow: #5BB8F540;
+  --cri-b: #F5D45B;
+  --cri-b-bg: #F5D45B20;
+  --cri-b-glow: #F5D45B40;
+  --cri-c: #7BD46A;
+  --cri-c-bg: #7BD46A20;
+  --cri-c-glow: #7BD46A40;
+  --cri-d: #F57B7B;
+  --cri-d-bg: #F57B7B20;
+  --cri-d-glow: #F57B7B40;
+
+  /* Levels */
+  --level-1: #B0B0B0;
+  --level-2: #7BA3CC;
+  --level-3: #5BB87B;
+  --level-4: #D4A535;
+
+  /* Nav */
+  --nav-bg: rgba(250, 250, 248, 0.85);
+}
+
+[data-theme="dark"] {
+  --bg: #111113;
+  --bg-elevated: #1C1C1F;
+  --bg-subtle: #232326;
+  --text: #E8E8E6;
+  --text-secondary: #A0A0A0;
+  --text-muted: #666666;
+  --border: #2E2E32;
+  --border-subtle: #252528;
+  --shadow: 0 2px 12px rgba(0,0,0,0.3);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.4);
+
+  --cri-a: #6EC4FF;
+  --cri-a-bg: #6EC4FF15;
+  --cri-a-glow: #6EC4FF30;
+  --cri-b: #FFE06B;
+  --cri-b-bg: #FFE06B15;
+  --cri-b-glow: #FFE06B30;
+  --cri-c: #8AE57A;
+  --cri-c-bg: #8AE57A15;
+  --cri-c-glow: #8AE57A30;
+  --cri-d: #FF8A8A;
+  --cri-d-bg: #FF8A8A15;
+  --cri-d-glow: #FF8A8A30;
+
+  --nav-bg: rgba(17, 17, 19, 0.85);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  transition: background 0.4s, color 0.4s;
+  overflow-x: hidden;
+}
+
+/* ============ GRID BACKGROUND ============ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border-subtle) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-subtle) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============ NAV ============ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  transition: background 0.4s;
+}
+
+.nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+}
+
+.nav-brand {
+  font-weight: 700; font-size: 1.1rem;
+  display: flex; align-items: center; gap: 10px;
+}
+
+.nav-links { display: flex; gap: 4px; align-items: center; }
+
+.nav-links a {
+  text-decoration: none; color: var(--text-secondary);
+  font-size: 0.85rem; font-weight: 500;
+  padding: 8px 14px; border-radius: 8px;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.nav-links a:hover, .nav-links a.active {
+  color: var(--text);
+  background: var(--bg-subtle);
+}
+
+.nav-controls { display: flex; gap: 8px; align-items: center; }
+
+.icon-btn {
+  width: 38px; height: 38px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-elevated);
+  color: var(--text);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+  font-size: 1.1rem;
+}
+
+.icon-btn:hover {
+  background: var(--bg-subtle);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+/* ============ SECTIONS ============ */
+section {
+  position: relative; z-index: 1;
+  max-width: 1200px; margin: 0 auto;
+  padding: 100px 24px 60px;
+  min-height: 100vh;
+}
+
+section:first-of-type { padding-top: 140px; }
+
+/* ============ HERO ============ */
+.hero {
+  text-align: center;
+  min-height: 90vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 24px;
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.hero h1 span { display: block; }
+
+.hero .cri-a-text { color: var(--cri-a); }
+.hero .cri-b-text { color: var(--cri-b); }
+.hero .cri-c-text { color: var(--cri-c); }
+.hero .cri-d-text { color: var(--cri-d); }
+
+.hero p {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  max-width: 520px;
+  line-height: 1.7;
+}
+
+.hero-badges {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  justify-content: center; margin-top: 12px;
+}
+
+.hero-badge {
+  padding: 10px 20px;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 2px solid;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+
+.hero-badge.a { border-color: var(--cri-a); color: var(--cri-a); background: var(--cri-a-bg); }
+.hero-badge.b { border-color: var(--cri-b); color: var(--cri-b); background: var(--cri-b-bg); }
+.hero-badge.c { border-color: var(--cri-c); color: var(--cri-c); background: var(--cri-c-bg); }
+.hero-badge.d { border-color: var(--cri-d); color: var(--cri-d); background: var(--cri-d-bg); }
+
+.hero-badge:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.hero-badge.a:hover { background: var(--cri-a-glow); }
+.hero-badge.b:hover { background: var(--cri-b-glow); }
+.hero-badge.c:hover { background: var(--cri-c-glow); }
+.hero-badge.d:hover { background: var(--cri-d-glow); }
+
+.scroll-hint {
+  margin-top: 40px;
+  animation: bounce 2s infinite;
+  color: var(--text-muted);
+  font-size: 1.4rem;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+/* ============ SECTION HEADERS ============ */
+.section-header {
+  margin-bottom: 48px;
+}
+
+.section-header .label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.section-header h2 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.section-header p {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  margin-top: 12px;
+  max-width: 600px;
+  line-height: 1.7;
+}
+
+/* ============ RUBRIC EXPLORER ============ */
+.explorer-controls {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.control-group {
+  display: flex; flex-direction: column; gap: 6px;
+}
+
+.control-group label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.pill-group { display: flex; gap: 6px; }
+
+.pill {
+  padding: 8px 18px;
+  border-radius: 100px;
+  border: 1.5px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s;
+  white-space: nowrap;
+}
+
+.pill:hover {
+  border-color: var(--text-muted);
+  color: var(--text);
+  transform: translateY(-1px);
+}
+
+.pill.active-a { border-color: var(--cri-a); color: var(--cri-a); background: var(--cri-a-bg); }
+.pill.active-b { border-color: var(--cri-b); color: var(--cri-b); background: var(--cri-b-bg); }
+.pill.active-c { border-color: var(--cri-c); color: var(--cri-c); background: var(--cri-c-bg); }
+.pill.active-d { border-color: var(--cri-d); color: var(--cri-d); background: var(--cri-d-bg); }
+.pill.active-neutral { border-color: var(--text); color: var(--text); background: var(--bg-subtle); }
+
+.level-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.level-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+  cursor: default;
+}
+
+.level-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+}
+
+.level-card[data-level="1"]::before { background: var(--level-1); }
+.level-card[data-level="2"]::before { background: var(--level-2); }
+.level-card[data-level="3"]::before { background: var(--level-3); }
+.level-card[data-level="4"]::before { background: var(--level-4); }
+
+.level-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--text-muted);
+}
+
+.level-card .level-badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 6px;
+  background: var(--bg-subtle);
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+}
+
+.level-card .descriptor {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.level-card .descriptor .cmd-term {
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 4px;
+  cursor: help;
+  transition: all 0.2s;
+}
+
+/* criterion-specific cmd-term colors */
+.cri-a-context .cmd-term { background: var(--cri-a-bg); color: var(--cri-a); }
+.cri-b-context .cmd-term { background: var(--cri-b-bg); color: var(--cri-b); }
+.cri-c-context .cmd-term { background: var(--cri-c-bg); color: var(--cri-c); }
+.cri-d-context .cmd-term { background: var(--cri-d-bg); color: var(--cri-d); }
+
+.level-card .na-label {
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+/* ============ STRAND INFO ============ */
+.strand-info {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.strand-info .strand-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.strand-info.cri-a .strand-num { background: var(--cri-a-bg); color: var(--cri-a); }
+.strand-info.cri-b .strand-num { background: var(--cri-b-bg); color: var(--cri-b); }
+.strand-info.cri-c .strand-num { background: var(--cri-c-bg); color: var(--cri-c); }
+.strand-info.cri-d .strand-num { background: var(--cri-d-bg); color: var(--cri-d); }
+
+.strand-info .strand-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+/* ============ PROGRESSION VIEW ============ */
+.progression-controls {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.progression-flow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  position: relative;
+}
+
+.progression-flow::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--border), var(--text-muted), var(--text));
+  z-index: 0;
+}
+
+.prog-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s;
+}
+
+.prog-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.prog-card .year-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.prog-card .year-label.y1 { background: var(--bg-subtle); color: var(--text-muted); }
+.prog-card .year-label.y3 { background: var(--bg-subtle); color: var(--text-secondary); }
+.prog-card .year-label.y5 { background: var(--bg-subtle); color: var(--text); }
+
+.prog-card .prog-text {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.prog-card .prog-text .cmd-term {
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 4px;
+  cursor: help;
+  transition: all 0.2s;
+}
+
+/* ============ INTERACTIVE CHECKLIST ============ */
+.checklist-container {
+  display: flex; flex-direction: column; gap: 16px;
+}
+
+.checklist-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: all 0.3s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.checklist-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 4px;
+  transition: background 0.3s;
+}
+
+.checklist-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: var(--text-muted);
+}
+
+.checklist-card.checked {
+  border-color: var(--border);
+}
+
+.checklist-card.checked .check-text {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.check-box {
+  width: 26px; height: 26px;
+  border: 2px solid var(--border);
+  border-radius: 7px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s;
+  margin-top: 1px;
+  font-size: 0.85rem;
+  color: transparent;
+}
+
+.checklist-card.checked .check-box {
+  color: white;
+  font-weight: 700;
+}
+
+.check-content {
+  flex: 1;
+}
+
+.check-strand-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.check-text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text);
+  transition: all 0.3s;
+}
+
+.check-text .cmd-term {
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 4px;
+  cursor: help;
+  transition: all 0.2s;
+}
+
+/* Criterion-colored left borders and checkboxes */
+.checklist-card.cri-a-check::before { background: var(--cri-a); }
+.checklist-card.cri-b-check::before { background: var(--cri-b); }
+.checklist-card.cri-c-check::before { background: var(--cri-c); }
+.checklist-card.cri-d-check::before { background: var(--cri-d); }
+
+.checklist-card.cri-a-check.checked .check-box { background: var(--cri-a); border-color: var(--cri-a); }
+.checklist-card.cri-b-check.checked .check-box { background: var(--cri-b); border-color: var(--cri-b); }
+.checklist-card.cri-c-check.checked .check-box { background: var(--cri-c); border-color: var(--cri-c); }
+.checklist-card.cri-d-check.checked .check-box { background: var(--cri-d); border-color: var(--cri-d); }
+
+.checklist-card.cri-a-check .check-text .cmd-term { background: var(--cri-a-bg); color: var(--cri-a); }
+.checklist-card.cri-b-check .check-text .cmd-term { background: var(--cri-b-bg); color: var(--cri-b); }
+.checklist-card.cri-c-check .check-text .cmd-term { background: var(--cri-c-bg); color: var(--cri-c); }
+.checklist-card.cri-d-check .check-text .cmd-term { background: var(--cri-d-bg); color: var(--cri-d); }
+
+/* Checklist group headers */
+.checklist-group {
+  margin-bottom: 8px;
+}
+
+.checklist-group-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 0 10px;
+  margin-top: 8px;
+}
+
+.checklist-group:first-child .checklist-group-header {
+  margin-top: 0;
+}
+
+.checklist-group-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.checklist-group-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* Progress bar */
+.checklist-progress {
+  margin-top: 24px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+}
+
+.progress-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.progress-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.progress-track {
+  flex: 1;
+  height: 10px;
+  background: var(--bg-subtle);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s;
+  width: 0%;
+}
+
+.progress-count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* ============ CRITERION EXPLAINER ============ */
+.cri-explainer {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  transition: all 0.3s;
+}
+
+.cri-explainer-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  transition: all 0.3s;
+  color: white;
+}
+
+.cri-explainer-icon.icon-a { background: var(--cri-a); }
+.cri-explainer-icon.icon-b { background: var(--cri-b); }
+.cri-explainer-icon.icon-c { background: var(--cri-c); }
+.cri-explainer-icon.icon-d { background: var(--cri-d); }
+
+.cri-explainer-content {
+  flex: 1;
+}
+
+.cri-explainer-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  transition: color 0.3s;
+}
+
+.cri-explainer-desc {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.cri-explainer-strands {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cri-explainer-strand-tag {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 100px;
+  background: var(--bg-subtle);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+/* ============ COMMAND TERMS ============ */
+.terms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.term-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.term-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.term-card .term-word {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.term-card .term-depth {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.term-card .depth-bar {
+  height: 6px;
+  border-radius: 3px;
+  transition: width 0.4s;
+}
+
+.term-card .depth-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.term-card .term-def {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Tooltip */
+.cmd-tooltip {
+  position: fixed;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  box-shadow: var(--shadow-lg);
+  z-index: 2000;
+  max-width: 280px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.cmd-tooltip.visible { opacity: 1; }
+
+.cmd-tooltip .tip-term {
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.cmd-tooltip .tip-def {
+  color: var(--text-secondary);
+}
+
+/* ============ MYP GROUP SELECTOR ============ */
+.myp-selector {
+  margin-bottom: 24px;
+}
+
+/* ============ DESIGN CYCLE WHEEL ============ */
+.wheel-sector {
+  transition: opacity 0.3s, filter 0.3s;
+  cursor: pointer;
+}
+
+.wheel-sector:hover {
+  opacity: 0.85;
+  filter: brightness(1.08);
+}
+
+.wheel-link {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  cursor: pointer;
+  z-index: 2;
+  opacity: 0;
+}
+
+/* Top triangle click area */
+.wheel-link-a { top: 0; left: 25%; width: 50%; height: 50%; clip-path: polygon(50% 100%, 0 0, 100% 0); }
+/* Right triangle click area */
+.wheel-link-b { top: 0; right: 0; width: 50%; height: 100%; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+/* Bottom triangle click area */
+.wheel-link-c { bottom: 0; left: 25%; width: 50%; height: 50%; clip-path: polygon(0 0, 100% 0, 50% 100%); }
+/* Left triangle click area */
+.wheel-link-d { top: 0; left: 0; width: 50%; height: 100%; clip-path: polygon(100% 0, 0 50%, 100% 100%); }
+
+/* Spin animation on load */
+@keyframes wheelSpin {
+  from { transform: rotate(-90deg) scale(0.8); opacity: 0; }
+  to { transform: rotate(0deg) scale(1); opacity: 1; }
+}
+
+.hero svg {
+  animation: wheelSpin 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+}
+
+/* ============ FOOTER ============ */
+footer {
+  position: relative; z-index: 1;
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  border-top: 1px solid var(--border);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  section { padding: 80px 16px 40px; }
+  section:first-of-type { padding-top: 100px; }
+  .level-cards { grid-template-columns: 1fr; }
+  .progression-flow {
+    grid-template-columns: 1fr;
+  }
+  .progression-flow::before {
+    display: none;
+  }
+  .terms-grid { grid-template-columns: 1fr; }
+}
+
+/* ============ ANIMATIONS ============ */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.6s forwards;
+}
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+
+/* Mobile nav menu */
+.mobile-menu-btn {
+  display: none;
+  width: 38px; height: 38px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-elevated);
+  color: var(--text);
+  cursor: pointer;
+  align-items: center; justify-content: center;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-btn { display: flex; }
+}
+
+/* ============ SOUND TOGGLE ============ */
+.sound-indicator {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+</style>
+</head>
+<body>
+
+<!-- TOOLTIP -->
+<div class="cmd-tooltip" id="cmdTooltip">
+  <div class="tip-term"></div>
+  <div class="tip-def"></div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" width="30" height="30" style="flex-shrink:0;">
+        <clipPath id="navClip"><circle cx="200" cy="200" r="185"/></clipPath>
+        <g clip-path="url(#navClip)">
+          <path d="M200,200 L0,0 L400,0 Z" fill="#56C4E8"/>
+          <path d="M200,200 L400,0 L400,400 Z" fill="#F5D049"/>
+          <path d="M200,200 L400,400 L0,400 Z" fill="#A0D14B"/>
+          <path d="M200,200 L0,400 L0,0 Z" fill="#EF6B6B"/>
+          <line x1="15" y1="15" x2="385" y2="385" stroke="white" stroke-width="12"/>
+          <line x1="385" y1="15" x2="15" y2="385" stroke="white" stroke-width="12"/>
+          <circle cx="200" cy="200" r="36" fill="white"/>
+        </g>
+        <circle cx="200" cy="200" r="185" fill="none" stroke="white" stroke-width="10"/>
+      </svg>
+      MYP Design Rubric
+    </div>
+    <div class="nav-links">
+      <a href="#explorer" onclick="playSound('click')">Explorer</a>
+      <a href="#progression" onclick="playSound('click')">Progression</a>
+      <a href="#assessment" onclick="playSound('click')">Checklist</a>
+      <a href="#terms" onclick="playSound('click')">Command Terms</a>
+    </div>
+    <div class="nav-controls">
+      <button class="icon-btn" id="soundToggle" onclick="toggleSound()" title="Toggle Sound">🔊</button>
+      <button class="icon-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle Dark Mode">🌙</button>
+      <button class="mobile-menu-btn" id="mobileMenu" onclick="toggleMobileMenu()">☰</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <h1 class="fade-in" style="font-size:clamp(2rem,5vw,3.2rem);margin-bottom:4px;">MYP Design Rubric</h1>
+  <p class="fade-in stagger-1" style="font-size:0.85rem;color:var(--text-muted);margin-bottom:4px;">Website made by <strong style="color:var(--text-secondary);">Charlene Mae Sta Teresa</strong></p>
+  <p class="fade-in stagger-1" style="margin-bottom:24px;">An interactive guide to the IB MYP Design assessment criteria.</p>
+
+  <!-- Design Cycle Wheel -->
+  <div class="fade-in stagger-2" style="position:relative;width:min(380px,80vw);height:min(380px,80vw);margin:0 auto;">
+    <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;filter:drop-shadow(0 8px 32px rgba(0,0,0,0.10));">
+      <defs>
+        <clipPath id="circleClip"><circle cx="200" cy="200" r="185"/></clipPath>
+      </defs>
+      <g clip-path="url(#circleClip)">
+        <!-- Diagonal quadrants: using polygon clipping approach -->
+        <!-- A - Top (Sky Blue)  - triangle pointing up -->
+        <polygon points="200,200 -5,0 405,0 200,200" fill="#56C4E8" class="wheel-sector" data-cri="A"/>
+        <polygon points="-5,0 200,200 -5,400" fill="transparent"/>
+        <!-- Fill the top triangle fully -->
+        <path d="M200,200 L0,0 L400,0 Z" fill="#56C4E8"/>
+        <!-- B - Right (Golden Yellow)  - triangle pointing right -->
+        <path d="M200,200 L400,0 L400,400 Z" fill="#F5D049"/>
+        <!-- C - Bottom (Lime Green)  - triangle pointing down -->
+        <path d="M200,200 L400,400 L0,400 Z" fill="#A0D14B"/>
+        <!-- D - Left (Coral Red)  - triangle pointing left -->
+        <path d="M200,200 L0,400 L0,0 Z" fill="#EF6B6B"/>
+        <!-- Divider lines (diagonal X) -->
+        <line x1="15" y1="15" x2="385" y2="385" stroke="white" stroke-width="4.5"/>
+        <line x1="385" y1="15" x2="15" y2="385" stroke="white" stroke-width="4.5"/>
+        <!-- Center circle -->
+        <circle cx="200" cy="200" r="28" fill="white" opacity="0.95"/>
+      </g>
+      <!-- Outer ring stroke -->
+      <circle cx="200" cy="200" r="185" fill="none" stroke="white" stroke-width="5"/>
+      <!-- Labels positioned: A top-center, B right-center, C bottom-center, D left-center -->
+      <text x="200" y="128" text-anchor="middle" font-family="Outfit,sans-serif" font-size="48" font-weight="800" fill="#1a5c6e" opacity="0.85">A</text>
+      <text x="295" y="218" text-anchor="middle" font-family="Outfit,sans-serif" font-size="48" font-weight="800" fill="#7a6a10" opacity="0.85">B</text>
+      <text x="200" y="305" text-anchor="middle" font-family="Outfit,sans-serif" font-size="48" font-weight="800" fill="#3d6810" opacity="0.85">C</text>
+      <text x="108" y="218" text-anchor="middle" font-family="Outfit,sans-serif" font-size="48" font-weight="800" fill="#7a2020" opacity="0.85">D</text>
+    </svg>
+    <!-- Clickable overlays for each quadrant (diagonal) -->
+    <a href="#explorer" onclick="playSound('hover'); setExplorerCriterion('A')" class="wheel-link wheel-link-a" title="A · Inquiring &amp; Analyzing"></a>
+    <a href="#explorer" onclick="playSound('hover'); setExplorerCriterion('B')" class="wheel-link wheel-link-b" title="B · Developing Ideas"></a>
+    <a href="#explorer" onclick="playSound('hover'); setExplorerCriterion('C')" class="wheel-link wheel-link-c" title="C · Creating the Solution"></a>
+    <a href="#explorer" onclick="playSound('hover'); setExplorerCriterion('D')" class="wheel-link wheel-link-d" title="D · Evaluating"></a>
+  </div>
+
+  <!-- Criterion labels below wheel -->
+  <div class="hero-badges fade-in stagger-3" style="margin-top:28px;">
+    <a href="#explorer" class="hero-badge a" onclick="playSound('hover'); setExplorerCriterion('A')">A · Inquiring & Analyzing</a>
+    <a href="#explorer" class="hero-badge b" onclick="playSound('hover'); setExplorerCriterion('B')">B · Developing Ideas</a>
+    <a href="#explorer" class="hero-badge c" onclick="playSound('hover'); setExplorerCriterion('C')">C · Creating the Solution</a>
+    <a href="#explorer" class="hero-badge d" onclick="playSound('hover'); setExplorerCriterion('D')">D · Evaluating</a>
+  </div>
+  <div class="scroll-hint fade-in stagger-4">↓</div>
+</section>
+
+<!-- RUBRIC EXPLORER -->
+<section id="explorer">
+  <div class="section-header fade-in">
+    <div class="label">01 / Explore</div>
+    <h2>Rubric Explorer</h2>
+    <p>Select a criterion, strand, and year group to see exactly what each achievement level expects.</p>
+  </div>
+
+  <div class="explorer-controls fade-in stagger-1">
+    <div class="control-group">
+      <label>Criterion</label>
+      <div class="pill-group" id="criPills">
+        <button class="pill active-a" data-cri="A" onclick="selectCriterion('A')">A</button>
+        <button class="pill" data-cri="B" onclick="selectCriterion('B')">B</button>
+        <button class="pill" data-cri="C" onclick="selectCriterion('C')">C</button>
+        <button class="pill" data-cri="D" onclick="selectCriterion('D')">D</button>
+      </div>
+    </div>
+    <div class="control-group">
+      <label>Strand</label>
+      <div class="pill-group" id="strandPills">
+        <button class="pill active-neutral" data-strand="1" onclick="selectStrand(1)">1</button>
+        <button class="pill" data-strand="2" onclick="selectStrand(2)">2</button>
+        <button class="pill" data-strand="3" onclick="selectStrand(3)">3</button>
+        <button class="pill" data-strand="4" onclick="selectStrand(4)">4</button>
+      </div>
+    </div>
+    <div class="control-group">
+      <label>Year Group</label>
+      <div class="pill-group" id="yearPills">
+        <button class="pill active-neutral" data-year="MYP1" onclick="selectYear('MYP1')">MYP 1</button>
+        <button class="pill" data-year="MYP3" onclick="selectYear('MYP3')">MYP 3</button>
+        <button class="pill" data-year="MYP5" onclick="selectYear('MYP5')">MYP 5</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Criterion Explainer -->
+  <div class="cri-explainer fade-in stagger-2" id="criExplainer">
+    <div class="cri-explainer-icon" id="criExplainerIcon">A</div>
+    <div class="cri-explainer-content">
+      <div class="cri-explainer-title" id="criExplainerTitle">Criterion A · Inquiring & Analyzing</div>
+      <div class="cri-explainer-desc" id="criExplainerDesc"></div>
+    </div>
+  </div>
+
+  <div id="strandInfoBox" class="strand-info cri-a fade-in stagger-3">
+    <span class="strand-num">STRAND 1</span>
+    <span class="strand-title">Explain and Justify the Need</span>
+  </div>
+
+  <div class="level-cards fade-in stagger-3" id="levelCards">
+    <!-- Populated by JS -->
+  </div>
+</section>
+
+<!-- PROGRESSION VIEW -->
+<section id="progression">
+  <div class="section-header fade-in">
+    <div class="label">02 / Progression</div>
+    <h2>How Expectations Grow</h2>
+    <p>See how the same strand evolves from MYP 1 through MYP 5. Notice how the command terms deepen in complexity.</p>
+  </div>
+
+  <div class="progression-controls fade-in stagger-1">
+    <div class="control-group">
+      <label>Criterion</label>
+      <div class="pill-group" id="progCriPills">
+        <button class="pill active-a" data-cri="A" onclick="selectProgCri('A')">A</button>
+        <button class="pill" data-cri="B" onclick="selectProgCri('B')">B</button>
+        <button class="pill" data-cri="C" onclick="selectProgCri('C')">C</button>
+        <button class="pill" data-cri="D" onclick="selectProgCri('D')">D</button>
+      </div>
+    </div>
+    <div class="control-group">
+      <label>Strand</label>
+      <div class="pill-group" id="progStrandPills">
+        <button class="pill active-neutral" data-strand="1" onclick="selectProgStrand(1)">1</button>
+        <button class="pill" data-strand="2" onclick="selectProgStrand(2)">2</button>
+        <button class="pill" data-strand="3" onclick="selectProgStrand(3)">3</button>
+        <button class="pill" data-strand="4" onclick="selectProgStrand(4)">4</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="progression-flow fade-in stagger-2" id="progFlow">
+    <!-- Populated by JS -->
+  </div>
+</section>
+
+<!-- INTERACTIVE CHECKLIST -->
+<section id="assessment">
+  <div class="section-header fade-in">
+    <div class="label">03 / Checklist</div>
+    <h2>What Do I Need To Do?</h2>
+    <p>Select your criterion, strand, and year group to get a practical checklist of things to do to achieve the highest mark (Level 7-8).</p>
+  </div>
+
+  <div class="explorer-controls fade-in stagger-1">
+    <div class="control-group">
+      <label>Criterion</label>
+      <div class="pill-group" id="checkCriPills">
+        <button class="pill active-a" data-cri="A" onclick="selectCheckCri('A')">A</button>
+        <button class="pill" data-cri="B" onclick="selectCheckCri('B')">B</button>
+        <button class="pill" data-cri="C" onclick="selectCheckCri('C')">C</button>
+        <button class="pill" data-cri="D" onclick="selectCheckCri('D')">D</button>
+      </div>
+    </div>
+    <div class="control-group">
+      <label>Strand</label>
+      <div class="pill-group" id="checkStrandPills">
+        <button class="pill active-neutral" data-strand="1" onclick="selectCheckStrand(1)">1</button>
+        <button class="pill" data-strand="2" onclick="selectCheckStrand(2)">2</button>
+        <button class="pill" data-strand="3" onclick="selectCheckStrand(3)">3</button>
+        <button class="pill" data-strand="4" onclick="selectCheckStrand(4)">4</button>
+      </div>
+    </div>
+    <div class="control-group">
+      <label>Year Group</label>
+      <div class="pill-group" id="checkYearPills">
+        <button class="pill active-neutral" data-year="MYP1" onclick="selectCheckYear('MYP1')">MYP 1</button>
+        <button class="pill" data-year="MYP3" onclick="selectCheckYear('MYP3')">MYP 3</button>
+        <button class="pill" data-year="MYP5" onclick="selectCheckYear('MYP5')">MYP 5</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="checkStrandInfoBox" class="strand-info cri-a fade-in stagger-2" style="margin-bottom:20px;">
+    <span class="strand-num">STRAND 1</span>
+    <span class="strand-title">Explain and Justify the Need</span>
+  </div>
+
+  <div class="checklist-container fade-in stagger-2" id="checklistContainer">
+    <!-- Populated by JS -->
+  </div>
+
+  <div class="checklist-progress fade-in stagger-3" id="checklistProgress">
+    <div class="progress-inner">
+      <div class="progress-label">Progress</div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-count" id="progressCount">0 / 0</div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMAND TERMS -->
+<section id="terms">
+  <div class="section-header fade-in">
+    <div class="label">04 / Decode</div>
+    <h2>Command Term Decoder</h2>
+    <p>Understanding the difference between "state" and "justify" is half the battle. Explore each term and its depth of thinking.</p>
+  </div>
+
+  <div class="terms-grid fade-in stagger-1" id="termsGrid">
+    <!-- Populated by JS -->
+  </div>
+</section>
+
+<footer>
+  <p>Built for MYP Design students and teachers everywhere.</p>
+  <p style="margin-top:8px;font-size:0.75rem;color:var(--text-muted)">Based on the IB MYP Design assessment criteria. Not affiliated with the IBO.</p>
+</footer>
+
+<script>
+// ============================================
+// DATA
+// ============================================
+
+const commandTerms = {
+  'state': { depth: 1, def: 'Give a specific name, value, or other brief answer without explanation or calculation.' },
+  'states': { depth: 1, def: 'Give a specific name, value, or other brief answer without explanation or calculation.' },
+  'list': { depth: 1, def: 'Give a sequence of brief answers with no explanation.' },
+  'lists': { depth: 1, def: 'Give a sequence of brief answers with no explanation.' },
+  'define': { depth: 1, def: 'Give the precise meaning of a word, phrase, concept, or physical quantity.' },
+  'defines': { depth: 1, def: 'Give the precise meaning of a word, phrase, concept, or physical quantity.' },
+  'outline': { depth: 2, def: 'Give a brief account or summary. Not as detailed as "describe."' },
+  'outlines': { depth: 2, def: 'Give a brief account or summary. Not as detailed as "describe."' },
+  'describe': { depth: 3, def: 'Give a detailed account or picture of a situation, event, pattern, or process.' },
+  'describes': { depth: 3, def: 'Give a detailed account or picture of a situation, event, pattern, or process.' },
+  'explain': { depth: 4, def: 'Give a detailed account including reasons or causes. More depth than "describe."' },
+  'explains': { depth: 4, def: 'Give a detailed account including reasons or causes. More depth than "describe."' },
+  'analyse': { depth: 5, def: 'Break down in order to bring out the essential elements or structure. Identify parts and relationships.' },
+  'analyses': { depth: 5, def: 'Break down in order to bring out the essential elements or structure. Identify parts and relationships.' },
+  'analyze': { depth: 5, def: 'Break down in order to bring out the essential elements or structure. Identify parts and relationships.' },
+  'justify': { depth: 6, def: 'Give valid reasons or evidence to support an answer or conclusion. Show why decisions were made.' },
+  'justifies': { depth: 6, def: 'Give valid reasons or evidence to support an answer or conclusion. Show why decisions were made.' },
+  'evaluate': { depth: 6, def: 'Make an appraisal by weighing up the strengths and limitations. Include a conclusion.' },
+  'evaluates': { depth: 6, def: 'Make an appraisal by weighing up the strengths and limitations. Include a conclusion.' },
+  'critically evaluate': { depth: 7, def: 'Make a thorough appraisal weighing strengths and limitations with well-supported judgments.' },
+  'critically evaluates': { depth: 7, def: 'Make a thorough appraisal weighing strengths and limitations with well-supported judgments.' },
+  'summarize': { depth: 4, def: 'Abstract a general theme or major points. Present the main ideas concisely.' },
+  'summarizes': { depth: 4, def: 'Abstract a general theme or major points. Present the main ideas concisely.' },
+  'construct': { depth: 3, def: 'Display information in a diagrammatic or logical form. Build or put together.' },
+  'constructs': { depth: 3, def: 'Display information in a diagrammatic or logical form. Build or put together.' },
+  'develop': { depth: 4, def: 'Improve incrementally, elaborate, or expand in detail. Evolve to a more advanced state.' },
+  'develops': { depth: 4, def: 'Improve incrementally, elaborate, or expand in detail. Evolve to a more advanced state.' },
+  'present': { depth: 3, def: 'Offer for display, observation, examination, or consideration. Show clearly.' },
+  'presents': { depth: 3, def: 'Offer for display, observation, examination, or consideration. Show clearly.' },
+  'create': { depth: 3, def: 'Evolve from one\'s own thought or imagination. Make or produce something.' },
+  'creates': { depth: 3, def: 'Evolve from one\'s own thought or imagination. Make or produce something.' },
+  'design': { depth: 4, def: 'Plan, create, or construct according to specific criteria or purpose.' },
+  'designs': { depth: 4, def: 'Plan, create, or construct according to specific criteria or purpose.' },
+  'demonstrate': { depth: 3, def: 'Make clear by reasoning or evidence, illustrating with examples or practical application.' },
+  'demonstrates': { depth: 3, def: 'Make clear by reasoning or evidence, illustrating with examples or practical application.' },
+  'follow': { depth: 2, def: 'Act in accordance with a plan or set of instructions.' },
+  'follows': { depth: 2, def: 'Act in accordance with a plan or set of instructions.' },
+  'identify': { depth: 2, def: 'Provide an answer from a number of possibilities. Recognize and state briefly.' },
+  'prioritize': { depth: 3, def: 'Arrange or order by importance, urgency, or relevance.' },
+};
+
+// Unique display terms
+const displayTerms = [
+  { word: 'State / List', depth: 1, def: 'Give a specific name, value, or brief answer without explanation.' },
+  { word: 'Outline', depth: 2, def: 'Give a brief account or summary. Not as detailed as "describe."' },
+  { word: 'Identify', depth: 2, def: 'Provide an answer from a number of possibilities. Recognize and state briefly.' },
+  { word: 'Describe', depth: 3, def: 'Give a detailed account of a situation, event, pattern, or process.' },
+  { word: 'Construct / Create', depth: 3, def: 'Build, put together, or produce something in a structured way.' },
+  { word: 'Present / Demonstrate', depth: 3, def: 'Offer for display or make clear through evidence or practical application.' },
+  { word: 'Explain / Develop', depth: 4, def: 'Give a detailed account including reasons or causes. Elaborate and expand.' },
+  { word: 'Summarize', depth: 4, def: 'Abstract the main ideas and present them concisely.' },
+  { word: 'Analyse', depth: 5, def: 'Break down to bring out essential elements. Identify parts and relationships.' },
+  { word: 'Justify / Evaluate', depth: 6, def: 'Give valid reasons to support a conclusion, or weigh up strengths and limitations.' },
+  { word: 'Critically Evaluate', depth: 7, def: 'Make a thorough appraisal with well-supported, balanced judgments.' },
+];
+
+const strandNames = {
+  A: { 1: 'Explain and Justify the Need', 2: 'Identify and Prioritize Research', 3: 'Analyze Existing Products', 4: 'Develop a Design Brief' },
+  B: { 1: 'Develop a Design Specification', 2: 'Develop Design Ideas', 3: 'Present the Chosen Design', 4: 'Develop Planning Drawings/Diagrams' },
+  C: { 1: 'Construct a Logical Plan', 2: 'Demonstrate Technical Skills', 3: 'Follow the Plan / Create the Solution', 4: 'Justify Changes Made to the Design' },
+  D: { 1: 'Design Testing Methods', 2: 'Evaluate the Success of the Solution', 3: 'Explain How the Solution Could be Improved', 4: 'Explain the Impact of the Solution' },
+};
+
+const criNames = { A: 'Inquiring & Analyzing', B: 'Developing Ideas', C: 'Creating the Solution', D: 'Evaluating' };
+
+const criExplanations = {
+  A: 'This criterion focuses on the research and investigation phase of your design project. You need to identify a real problem, research it thoroughly, analyze existing products for inspiration, and put together a clear design brief. Think of it as answering: <em>"What problem am I solving, and what do I already know about it?"</em>',
+  B: 'This criterion is all about brainstorming and planning your solution. You develop a design specification (success criteria), generate multiple design ideas, choose the best one with good reasons, and create detailed planning drawings. Think of it as answering: <em>"What could my solution look like, and how will I build it?"</em>',
+  C: 'This criterion covers the actual making of your solution. You write a logical production plan, demonstrate your technical skills, follow your plan to build the product, and document any changes you make along the way. Think of it as answering: <em>"How well did I build my solution, and did I follow my plan?"</em>',
+  D: 'This criterion is about testing and reflecting on your finished product. You design testing methods, evaluate how well your solution meets the design specification, suggest improvements, and consider the impact on your target audience. Think of it as answering: <em>"How successful is my solution, and how could it be better?"</em>'
+};
+
+// Level descriptors: [criterion][strand][yearGroup][level1-2, level3-4, level5-6, level7-8]
+const levelDescriptors = {
+  A: {
+    1: {
+      MYP1: [
+        'states the need for a solution to a problem',
+        'outlines the need for a solution to a problem',
+        'explains the need for a solution to a problem',
+        'explains and justifies the need for a solution to a problem'
+      ],
+      MYP3: [
+        'states the need for a solution to a problem',
+        'outlines the need for a solution to a problem',
+        'explains the need for a solution to a problem',
+        'explains and justifies the need for a solution to a problem'
+      ],
+      MYP5: [
+        'states the need for a solution to a problem for a specified client/target audience',
+        'outlines the need for a solution to a problem for a specified client/target audience',
+        'explains the need for a solution to a problem for a specified client/target audience',
+        'explains and justifies the need for a solution to a problem for a client/target audience'
+      ]
+    },
+    2: {
+      MYP1: [
+        'states the findings of research',
+        'states some points of research needed to develop a solution, with some guidance',
+        'states and prioritizes the main points of research needed to develop a solution to the problem, with some guidance',
+        'states and prioritizes the main points of research needed to develop a solution to the problem, with minimal guidance'
+      ],
+      MYP3: [
+        'states some of the main findings of relevant research',
+        'states the research needed to develop a solution to the problem, with some guidance',
+        'constructs a research plan, which states and prioritizes the primary and secondary research needed to develop a solution to the problem, with some guidance',
+        'constructs a research plan, which states and prioritizes the primary and secondary research needed to develop a solution to the problem independently'
+      ],
+      MYP5: [
+        'develops a basic design brief, which states the findings of relevant research',
+        'outlines a research plan, which identifies primary and secondary research needed to develop a solution to the problem, with some guidance',
+        'constructs a research plan, which identifies and prioritizes primary and secondary research needed to develop a solution to the problem, with some guidance',
+        'constructs a detailed research plan, which identifies and prioritizes the primary and secondary research needed to develop a solution to the problem independently'
+      ]
+    },
+    3: {
+      MYP1: [
+        'N/A',
+        'states the main features of an existing product that inspires a solution to the problem',
+        'outlines the main features of an existing product that inspires a solution to the problem',
+        'describes the main features of an existing product that inspires a solution to the problem'
+      ],
+      MYP3: [
+        'N/A',
+        'outlines one existing product that inspires a solution to the problem',
+        'describes a group of similar products that inspire a solution to the problem',
+        'analyses a group of similar products that inspire a solution to the problem'
+      ],
+      MYP5: [
+        'N/A',
+        'analyses one existing product that inspires a solution to the problem',
+        'analyses a range of existing products that inspire a solution to the problem',
+        'analyses a range of existing products that inspire a solution to the problem in detail'
+      ]
+    },
+    4: {
+      MYP1: [
+        'N/A',
+        'outlines some of the main findings of research',
+        'outlines the main findings of relevant research',
+        'presents the main findings of relevant research'
+      ],
+      MYP3: [
+        'N/A',
+        'develops a basic design brief, which outlines some of relevant research',
+        'develops a design brief, which outlines the findings of relevant research',
+        'develops a design brief, which presents the analysis of relevant research'
+      ],
+      MYP5: [
+        'N/A',
+        'develops a design brief, which outlines the analysis of relevant research',
+        'develops a design brief, which explains the analysis of relevant research',
+        'develops a detailed design brief, which summarizes the analysis of relevant research'
+      ]
+    }
+  },
+  B: {
+    1: {
+      MYP1: [
+        'states one basic success criterion for a solution',
+        'states a few success criteria for the solution',
+        'develops a few success criteria for the solution',
+        'develops a list of success criteria for the solution'
+      ],
+      MYP3: [
+        'lists a few basic success criteria for the design of a solution',
+        'constructs a list of the success criteria for the design of a solution',
+        'develops design specifications, which identify the success criteria for the design of a solution',
+        'develops a design specification which outlines the success criteria for the design of a solution based on the data collected'
+      ],
+      MYP5: [
+        'lists some basic design specifications for the design of a solution',
+        'lists some design specifications, which relate to the success criteria for the design of a solution',
+        'develops design specifications, which outline the success criteria for the design of a solution',
+        'develops detailed design specifications, which explain the success criteria for the design of a solution based on the analysis of the research'
+      ]
+    },
+    2: {
+      MYP1: [
+        'presents one design idea, which can be interpreted by others',
+        'presents more than one design idea, using an appropriate medium(s) or labels key features, which can be interpreted by others',
+        'presents a few feasible design ideas, using an appropriate medium(s) and labels key features, which can be interpreted by others',
+        'presents feasible design ideas, using an appropriate medium(s) and outlines the key features, which can be correctly interpreted by others'
+      ],
+      MYP3: [
+        'presents one design idea, which can be interpreted by others',
+        'presents a few feasible design ideas, using an appropriate medium(s) or explains key features, which can be interpreted by others',
+        'presents a range of feasible design ideas, using an appropriate medium(s) and explains key features, which can be interpreted by others',
+        'presents a range of feasible design ideas, using an appropriate medium(s) and annotation, which can be correctly interpreted by others'
+      ],
+      MYP5: [
+        'presents one design, which can be interpreted by others',
+        'presents a few feasible designs, using an appropriate medium(s) or annotation, which can be interpreted by others',
+        'develops a range of feasible design ideas, using an appropriate medium(s) and annotation, which can be interpreted by others',
+        'develops a range of feasible design ideas, using an appropriate medium(s) and detailed annotation, which can be correctly interpreted by others'
+      ]
+    },
+    3: {
+      MYP1: [
+        'creates an incomplete planning drawing/diagram',
+        'states the key features of the chosen design',
+        'presents the chosen design stating the key features',
+        'presents the chosen design describing the key features'
+      ],
+      MYP3: [
+        'creates incomplete planning drawings/diagrams',
+        'outlines the main reasons for choosing the design with reference to the design specification',
+        'presents the chosen design and outlines the main reasons for its selection with reference to the design specification',
+        'presents the chosen design and outlines the reasons for its selection with reference to the design specification'
+      ],
+      MYP5: [
+        'creates incomplete planning drawings/diagrams',
+        'justifies the selection of the chosen design with reference to the design specification',
+        'presents the chosen design and justifies its selection with reference to the design specification',
+        'presents the chosen design and justifies fully and critically its selection with detailed reference to the design specification'
+      ]
+    },
+    4: {
+      MYP1: [
+        'N/A',
+        'creates a planning drawing/diagram or lists requirements for the creation of the chosen solution',
+        'creates a planning drawing/diagram and lists the main details for the creation of the chosen solution',
+        'creates a planning drawing/diagram, which outlines the main details for making the chosen solution'
+      ],
+      MYP3: [
+        'N/A',
+        'creates planning drawings/diagrams or lists requirements for the chosen solution',
+        'develops accurate planning drawings/diagrams and lists requirements for the creation of the chosen solution',
+        'develops accurate planning drawings/diagrams and outlines requirements for the creation of the chosen solution'
+      ],
+      MYP5: [
+        'N/A',
+        'creates planning drawings/diagrams or lists requirements for the creation of the chosen solution',
+        'develops accurate planning drawings/diagrams and lists requirements for the creation of the chosen solution',
+        'develops accurate and detailed planning drawings/diagrams and outlines requirements for the creation of the chosen solution'
+      ]
+    }
+  },
+  C: {
+    1: {
+      MYP1: [
+        'demonstrates minimal technical skills when making the solution',
+        'lists the main steps in a plan that contains some details, resulting in peers having difficulty following the plan to create the solution',
+        'lists the steps in a plan, which considers time and resources, resulting in peers being able to follow the plan to create the solution',
+        'outlines a plan, which considers the use of resources and time, sufficient for peers to be able to follow to create the solution'
+      ],
+      MYP3: [
+        'demonstrates minimal technical skills when making the solution',
+        'outlines each step in a plan that contains some details, resulting in peers having difficulty following the plan to create the solution',
+        'constructs a plan, which considers time and resources, sufficient for peers to be able to follow to create the solution',
+        'constructs a logical plan, which outlines the efficient use of time and resources, sufficient for peers to be able to follow to create the solution'
+      ],
+      MYP5: [
+        'demonstrates minimal technical skills when making the solution',
+        'constructs a plan that contains some production details, resulting in peers having difficulty following the plan',
+        'constructs a logical plan, which considers time and resources, sufficient for peers to be able to follow to create the solution',
+        'constructs a detailed logical plan, which describes the efficient use of time and resources, sufficient for peers to be able to follow to create the solution'
+      ]
+    },
+    2: {
+      MYP1: [
+        'creates the solution, which functions poorly and is presented in an incomplete form',
+        'demonstrates satisfactory technical skills when making the solution',
+        'demonstrates competent technical skills when making the solution',
+        'demonstrates excellent technical skills when making the solution'
+      ],
+      MYP3: [
+        'creates the solution, which functions poorly and is presented in an incomplete form',
+        'demonstrates satisfactory technical skills when making the solution',
+        'demonstrates competent technical skills when making the solution',
+        'demonstrates excellent technical skills when making the solution'
+      ],
+      MYP5: [
+        'creates the solution, which functions poorly and is presented in an incomplete form',
+        'demonstrates satisfactory technical skills when making the solution',
+        'demonstrates competent technical skills when making the solution',
+        'demonstrates excellent technical skills when making the solution'
+      ]
+    },
+    3: {
+      MYP1: [
+        'N/A',
+        'creates the solution, which partially functions and is adequately presented',
+        'creates the solution, which functions as intended and is presented appropriately',
+        'follows the plan to create the solution, which functions as intended and is presented appropriately'
+      ],
+      MYP3: [
+        'N/A',
+        'creates the solution, which partially functions and is adequately presented',
+        'creates the solution, which functions as intended and is presented appropriately',
+        'follows the plan to create the solution, which functions as intended and is presented appropriately'
+      ],
+      MYP5: [
+        'N/A',
+        'creates the solution, which partially functions and is adequately presented',
+        'creates the solution, which functions as intended and is presented appropriately',
+        'follows the plan to create the solution, which functions as intended and is presented appropriately'
+      ]
+    },
+    4: {
+      MYP1: [
+        'N/A',
+        'states one change made to the chosen design or plan when making the solution',
+        'states one change made to the chosen design and plan when making the solution',
+        'lists the changes made to the chosen design and plan when making the solution'
+      ],
+      MYP3: [
+        'N/A',
+        'outlines changes made to the chosen design or plan when making the solution',
+        'outlines changes made to the chosen design and plan when making the solution',
+        'explains changes made to the chosen design and plan when making the solution'
+      ],
+      MYP5: [
+        'N/A',
+        'outlines changes made to the chosen design and plan when making the solution',
+        'describes changes made to the chosen design and plan when making the solution',
+        'fully justifies changes made to the chosen design and plan when making the solution'
+      ]
+    }
+  },
+  D: {
+    1: {
+      MYP1: [
+        'defines a testing method, which is used to measure the success of the solution',
+        'defines a relevant testing method, which generates data, to measure the success of the solution',
+        'defines relevant testing methods, which generate data, to measure the success of the solution',
+        'outlines simple, relevant testing methods, which generate data, to measure the success of the solution'
+      ],
+      MYP3: [
+        'describes a testing method, which is used to measure the success of the solution',
+        'describes a relevant testing method, which generates data, to measure the success of the solution',
+        'describes relevant testing methods, which generate data, to measure the success of the solution',
+        'describes detailed and relevant testing methods, which generate accurate data, to measure the success of the solution'
+      ],
+      MYP5: [
+        'designs a testing method, which is used to measure the success of the solution',
+        'designs a relevant testing method, which generates data, to measure the success of the solution',
+        'designs relevant testing methods, which generate data, to measure the success of the solution',
+        'designs detailed and relevant testing methods, which generate data, to measure the success of the solution'
+      ]
+    },
+    2: {
+      MYP1: [
+        'states the success of the solution',
+        'states the success of the solution against the design specification based on the results of one relevant test',
+        'states the success of the solution against the design specification based on relevant product testing',
+        'outlines the success of the solution against the design specification based on authentic product testing'
+      ],
+      MYP3: [
+        'states the success of the solution',
+        'outlines the success of the solution against the design specification based on relevant product testing',
+        'describes the success of the solution against the design specification based on relevant product testing',
+        'explains the success of the solution against the design specification based on authentic product testing'
+      ],
+      MYP5: [
+        'states the success of the solution',
+        'outlines the success of the solution against the design specification based on relevant product testing',
+        'explains the success of the solution against the design specification based on relevant product testing',
+        'critically evaluates the success of the solution against the design specification based on authentic product testing'
+      ]
+    },
+    3: {
+      MYP1: [
+        'N/A',
+        'states one way in which the solution could be improved',
+        'outlines one way in which the solution could be improved',
+        'outlines how the solution could be improved'
+      ],
+      MYP3: [
+        'N/A',
+        'lists the ways in which the solution could be improved',
+        'outlines how the solution could be improved',
+        'describes how the solution could be improved'
+      ],
+      MYP5: [
+        'N/A',
+        'outlines how the solution could be improved',
+        'describes how the solution could be improved',
+        'explains how the solution could be improved'
+      ]
+    },
+    4: {
+      MYP1: [
+        'N/A',
+        'states one way in which the solution can impact the client/target audience',
+        'outlines the impact of the solution on the client/target audience, with guidance',
+        'outlines the impact of the solution on the client/target audience'
+      ],
+      MYP3: [
+        'N/A',
+        'outlines the impact of the solution on the client/target audience',
+        'describes the impact of the solution on the client/target audience, with guidance',
+        'describes the impact of the solution on the client/target audience'
+      ],
+      MYP5: [
+        'N/A',
+        'outlines the impact of the solution on the client/target audience',
+        'explains the impact of the solution on the client/target audience, with guidance',
+        'explains the impact of the product on the client/target audience'
+      ]
+    }
+  }
+};
+
+// Progression data (highest band expectation per year)
+const progressionData = {
+  A: {
+    1: {
+      MYP1: 'explain and justify the need for a solution to a problem',
+      MYP3: 'explain and justify the need for a solution to a problem',
+      MYP5: 'explain and justify the need for a solution to a problem for a specified client/target audience'
+    },
+    2: {
+      MYP1: 'state and prioritize the main points of research needed to develop a solution to the problem',
+      MYP3: 'construct a research plan, which states and prioritizes the primary and secondary research needed to develop a solution to the problem',
+      MYP5: 'identify and prioritize the primary and secondary research needed to develop a solution to the problem'
+    },
+    3: {
+      MYP1: 'describe the main features of an existing product that inspires a solution to the problem',
+      MYP3: 'analyse a group of similar products that inspire a solution to the problem',
+      MYP5: 'analyse a range of existing products that inspire a solution to the problem'
+    },
+    4: {
+      MYP1: 'present the main findings of relevant research',
+      MYP3: 'develop a design brief, which presents the analysis of relevant research',
+      MYP5: 'develop a detailed design brief, which summarizes the analysis of relevant research'
+    }
+  },
+  B: {
+    1: {
+      MYP1: 'develop a list of success criteria for the solution',
+      MYP3: 'develop a design specification, which outlines the success criteria for the design of a solution based on the data collected',
+      MYP5: 'develop a design specification, which clearly states the success criteria for the design of a solution'
+    },
+    2: {
+      MYP1: 'present feasible design ideas, which can be correctly interpreted by others',
+      MYP3: 'present a range of feasible design ideas, which can be correctly interpreted by others',
+      MYP5: 'develop a range of feasible design ideas, which can be correctly interpreted by others'
+    },
+    3: {
+      MYP1: 'present the chosen design',
+      MYP3: 'present the chosen design and outline the reasons for its selection',
+      MYP5: 'present the chosen design and justify its selection'
+    },
+    4: {
+      MYP1: 'create a planning drawing/diagram, which outlines the main details for making the chosen solution',
+      MYP3: 'develop accurate planning drawings/diagrams and outline requirements for the creation of the chosen solution',
+      MYP5: 'develop accurate and detailed planning drawings/diagrams and outline the requirements for the creation of the chosen solution'
+    }
+  },
+  C: {
+    1: {
+      MYP1: 'outline a plan, which considers the use of resources and time, sufficient for peers to be able to follow to create the solution',
+      MYP3: 'construct a logical plan, which outlines the efficient use of time and resources, sufficient for peers to be able to follow to create the solution',
+      MYP5: 'construct a logical plan, which describes the efficient use of time and resources, sufficient for peers to be able to follow to create the solution'
+    },
+    2: {
+      MYP1: 'demonstrate excellent technical skills when making the solution',
+      MYP3: 'demonstrate excellent technical skills when making the solution',
+      MYP5: 'demonstrate excellent technical skills when making the solution'
+    },
+    3: {
+      MYP1: 'follow the plan to create the solution, which functions as intended',
+      MYP3: 'follow the plan to create the solution, which functions as intended',
+      MYP5: 'follow the plan to create the solution, which functions as intended'
+    },
+    4: {
+      MYP1: 'list the changes made to the chosen design and plan when making the solution',
+      MYP3: 'explain changes made to the chosen design and plan when making the solution',
+      MYP5: 'fully justify changes made to the chosen design and plan when making the solution'
+    }
+  },
+  D: {
+    1: {
+      MYP1: 'outline simple, relevant testing methods, which generate data, to measure the success of the solution',
+      MYP3: 'describe detailed and relevant testing methods, which generate accurate data, to measure the success of the solution',
+      MYP5: 'design detailed and relevant testing methods, which generate data, to measure the success of the solution'
+    },
+    2: {
+      MYP1: 'outline the success of the solution against the design specification',
+      MYP3: 'explain the success of the solution against the design specification',
+      MYP5: 'critically evaluate the success of the solution against the design specification'
+    },
+    3: {
+      MYP1: 'outline how the solution could be improved',
+      MYP3: 'describe how the solution could be improved',
+      MYP5: 'explain how the solution could be improved'
+    },
+    4: {
+      MYP1: 'outline the impact of the solution on the client/target audience',
+      MYP3: 'describe the impact of the solution on the client/target audience',
+      MYP5: 'explain the impact of the solution on the client/target audience'
+    }
+  }
+};
+
+// ============================================
+// SOUND ENGINE
+// ============================================
+let soundEnabled = true;
+let audioCtx = null;
+
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+function playSound(type) {
+  if (!soundEnabled) return;
+  try {
+    const ctx = getAudioCtx();
+    const now = ctx.currentTime;
+    // Uniform light, plain tick sound for all interactions
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.frequency.setValueAtTime(1000, now);
+    gain.gain.setValueAtTime(0.04, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+    osc.start(now); osc.stop(now + 0.04);
+  } catch(e) {}
+}
+
+function toggleSound() {
+  soundEnabled = !soundEnabled;
+  document.getElementById('soundToggle').textContent = soundEnabled ? '🔊' : '🔇';
+  if (soundEnabled) playSound('switch');
+}
+
+// ============================================
+// THEME
+// ============================================
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const next = current === 'light' ? 'dark' : 'light';
+  html.setAttribute('data-theme', next);
+  document.getElementById('themeToggle').textContent = next === 'dark' ? '☀️' : '🌙';
+  playSound('switch');
+}
+
+// ============================================
+// COMMAND TERM HIGHLIGHTING
+// ============================================
+const knownTerms = Object.keys(commandTerms).sort((a, b) => b.length - a.length);
+
+function highlightTerms(text) {
+  if (text === 'N/A') return '<span class="na-label">Not Applicable</span>';
+  let result = text;
+  const replacements = [];
+  const lowerText = text.toLowerCase();
+
+  knownTerms.forEach(term => {
+    const regex = new RegExp('\\b(' + term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')\\b', 'gi');
+    let match;
+    while ((match = regex.exec(lowerText)) !== null) {
+      let overlap = false;
+      for (const r of replacements) {
+        if (match.index < r.end && match.index + match[0].length > r.start) {
+          overlap = true; break;
+        }
+      }
+      if (!overlap) {
+        replacements.push({ start: match.index, end: match.index + match[0].length, term: term });
+      }
+    }
+  });
+
+  replacements.sort((a, b) => b.start - a.start);
+  replacements.forEach(r => {
+    const original = text.substring(r.start, r.end);
+    result = result.substring(0, r.start) +
+      `<span class="cmd-term" data-term="${r.term}">${original}</span>` +
+      result.substring(r.end);
+  });
+
+  return result;
+}
+
+// ============================================
+// RUBRIC EXPLORER
+// ============================================
+let currentCri = 'A';
+let currentStrand = 1;
+let currentYear = 'MYP1';
+
+function getCriClass(cri) { return 'cri-' + cri.toLowerCase(); }
+
+function selectCriterion(cri) {
+  currentCri = cri;
+  playSound('pop');
+  updateCriPills('criPills', cri);
+  renderExplorer();
+}
+
+function selectStrand(s) {
+  currentStrand = s;
+  playSound('click');
+  updateStrandPills('strandPills', s);
+  renderExplorer();
+}
+
+function selectYear(y) {
+  currentYear = y;
+  playSound('click');
+  updateYearPills('yearPills', y);
+  renderExplorer();
+}
+
+function setExplorerCriterion(cri) {
+  currentCri = cri;
+  updateCriPills('criPills', cri);
+  renderExplorer();
+}
+
+function updateCriPills(containerId, active) {
+  document.querySelectorAll(`#${containerId} .pill`).forEach(p => {
+    p.className = 'pill';
+    if (p.dataset.cri === active) p.classList.add('active-' + active.toLowerCase());
+  });
+}
+
+function updateStrandPills(containerId, active) {
+  document.querySelectorAll(`#${containerId} .pill`).forEach(p => {
+    p.className = 'pill';
+    if (parseInt(p.dataset.strand) === active) p.classList.add('active-neutral');
+  });
+}
+
+function updateYearPills(containerId, active) {
+  document.querySelectorAll(`#${containerId} .pill`).forEach(p => {
+    p.className = 'pill';
+    if (p.dataset.year === active) p.classList.add('active-neutral');
+  });
+}
+
+function renderExplorer() {
+  // Update criterion explainer
+  const explainerIcon = document.getElementById('criExplainerIcon');
+  const explainerTitle = document.getElementById('criExplainerTitle');
+  const explainerDesc = document.getElementById('criExplainerDesc');
+
+  explainerIcon.className = 'cri-explainer-icon icon-' + currentCri.toLowerCase();
+  explainerIcon.textContent = currentCri;
+  explainerTitle.textContent = `Criterion ${currentCri} · ${criNames[currentCri]}`;
+  explainerDesc.innerHTML = criExplanations[currentCri] +
+    `<div class="cri-explainer-strands">` +
+    [1,2,3,4].map(s => `<span class="cri-explainer-strand-tag">Strand ${s}: ${strandNames[currentCri][s]}</span>`).join('') +
+    `</div>`;
+
+  // Update strand info
+  const strandInfo = document.getElementById('strandInfoBox');
+  strandInfo.className = `strand-info ${getCriClass(currentCri)}`;
+  strandInfo.querySelector('.strand-num').textContent = `STRAND ${currentStrand}`;
+  strandInfo.querySelector('.strand-title').textContent = strandNames[currentCri][currentStrand];
+
+  const container = document.getElementById('levelCards');
+  const descriptors = levelDescriptors[currentCri][currentStrand][currentYear];
+  const levelLabels = ['1 - 2', '3 - 4', '5 - 6', '7 - 8'];
+  const contextClass = getCriClass(currentCri) + '-context';
+
+  container.innerHTML = descriptors.map((desc, i) => `
+    <div class="level-card ${contextClass}" data-level="${i + 1}" style="animation: fadeUp 0.4s ${i * 0.08}s both">
+      <div class="level-badge">${levelLabels[i]}</div>
+      <div class="descriptor">${highlightTerms(desc)}</div>
+    </div>
+  `).join('');
+
+  attachTermHovers();
+}
+
+// ============================================
+// PROGRESSION VIEW
+// ============================================
+let progCri = 'A';
+let progStrand = 1;
+
+function selectProgCri(cri) {
+  progCri = cri;
+  playSound('pop');
+  updateCriPills('progCriPills', cri);
+  renderProgression();
+}
+
+function selectProgStrand(s) {
+  progStrand = s;
+  playSound('click');
+  updateStrandPills('progStrandPills', s);
+  renderProgression();
+}
+
+function renderProgression() {
+  const container = document.getElementById('progFlow');
+  const data = progressionData[progCri][progStrand];
+  const years = ['MYP1', 'MYP3', 'MYP5'];
+  const yearLabels = { MYP1: 'MYP 1 · Grade 6', MYP3: 'MYP 3 · Grade 7-8', MYP5: 'MYP 5 · Grade 9-10' };
+  const contextClass = getCriClass(progCri) + '-context';
+
+  container.innerHTML = years.map((y, i) => `
+    <div class="prog-card ${contextClass}" style="animation: fadeUp 0.5s ${i * 0.12}s both">
+      <div class="year-label y${y.replace('MYP', '')}">${yearLabels[y]}</div>
+      <div class="prog-text">${highlightTerms(data[y])}</div>
+    </div>
+  `).join('');
+
+  attachTermHovers();
+}
+
+// ============================================
+// INTERACTIVE CHECKLIST
+// ============================================
+let checkCri = 'A';
+let checkStrand = 1;
+let checkYear = 'MYP1';
+let checkedItems = {};
+
+// Actionable checklist items for Level 7-8 per criterion/strand/year
+const checklistData = {
+  A: {
+    1: {
+      MYP1: [
+        'Clearly explained the problem you are trying to solve',
+        'Justified WHY this problem needs a design solution (not just stated it)',
+        'Gave reasons showing why the problem matters to users',
+        'Used specific examples or evidence to support your justification'
+      ],
+      MYP3: [
+        'Clearly explained the problem you are trying to solve',
+        'Justified WHY this problem needs a design solution with clear reasoning',
+        'Connected the problem to real user needs with supporting evidence',
+        'Showed why existing solutions are insufficient or absent'
+      ],
+      MYP5: [
+        'Clearly explained the problem for a specified client or target audience',
+        'Justified WHY this problem needs solving for that specific audience',
+        'Provided detailed evidence showing the significance of the problem',
+        'Linked the problem directly to client/audience needs with supporting data'
+      ]
+    },
+    2: {
+      MYP1: [
+        'Stated the main research points needed to develop your solution',
+        'Prioritized your research (most important first) with minimal teacher guidance',
+        'Covered a range of research areas relevant to the problem',
+        'Organized research findings clearly and logically'
+      ],
+      MYP3: [
+        'Constructed a proper research plan (not just a list of topics)',
+        'Identified both primary research (surveys, interviews) and secondary research (books, websites)',
+        'Prioritized research tasks independently without teacher guidance',
+        'Research plan is detailed enough that someone else could follow it'
+      ],
+      MYP5: [
+        'Constructed a detailed and well-organized research plan',
+        'Clearly identified and labeled both primary and secondary research methods',
+        'Prioritized research independently showing which tasks are most critical',
+        'Research plan is thorough, logical, and demonstrates independent thinking'
+      ]
+    },
+    3: {
+      MYP1: [
+        'Described the main features of at least one existing product that inspires your solution',
+        'Explained what makes the existing product successful or relevant',
+        'Identified features you could use or improve upon in your own design',
+        'Included images or diagrams of the existing product(s)'
+      ],
+      MYP3: [
+        'Analysed (not just described) a group of similar existing products',
+        'Compared strengths and weaknesses across the products',
+        'Identified specific features and design elements that inspire your solution',
+        'Referenced how these products relate to your design problem'
+      ],
+      MYP5: [
+        'Analysed a range of existing products in detail (not just one or two)',
+        'Provided in-depth comparison of features, materials, aesthetics, and function',
+        'Evaluated what works well and what could be improved in each product',
+        'Clearly connected your analysis back to how it informs your own design'
+      ]
+    },
+    4: {
+      MYP1: [
+        'Presented the main findings from your research clearly',
+        'Research findings are relevant to the design problem',
+        'Used appropriate formats to present findings (tables, summaries, etc.)',
+        'All sources are cited or referenced properly'
+      ],
+      MYP3: [
+        'Developed a design brief that goes beyond just listing research',
+        'Design brief presents the analysis of your research (not just raw data)',
+        'Clearly connected research findings to design decisions',
+        'All sources are properly cited and referenced'
+      ],
+      MYP5: [
+        'Developed a detailed design brief that summarizes your research analysis',
+        'Design brief shows clear synthesis of multiple research sources',
+        'Analysis demonstrates critical thinking about the research findings',
+        'All sources are properly cited using a consistent referencing style'
+      ]
+    }
+  },
+  B: {
+    1: {
+      MYP1: [
+        'Created a list of success criteria for what your solution needs to achieve',
+        'Success criteria are specific and measurable (not vague)',
+        'Criteria cover different aspects: function, aesthetics, size, materials, etc.',
+        'Success criteria are realistic and relate to the design problem'
+      ],
+      MYP3: [
+        'Developed a design specification that outlines success criteria',
+        'Success criteria are based on the data you collected in Criterion A',
+        'Each criterion is specific, measurable, and testable',
+        'Specification covers all key aspects: function, aesthetics, user needs, constraints'
+      ],
+      MYP5: [
+        'Developed detailed design specifications with clearly explained success criteria',
+        'Each specification is directly justified by your research analysis',
+        'Criteria are highly specific, measurable, and testable',
+        'Specifications are comprehensive and cover function, form, user needs, sustainability, and constraints'
+      ]
+    },
+    2: {
+      MYP1: [
+        'Presented multiple feasible (realistic) design ideas, not just one',
+        'Used appropriate medium(s) to show your designs (sketches, digital, models)',
+        'Outlined the key features of each design clearly',
+        'Designs can be correctly understood and interpreted by others'
+      ],
+      MYP3: [
+        'Presented a range of feasible design ideas using appropriate medium(s)',
+        'Each design includes clear annotation explaining features and choices',
+        'Designs show variety and creative thinking (not minor variations)',
+        'All designs can be correctly interpreted by someone else'
+      ],
+      MYP5: [
+        'Developed a range of feasible design ideas (showing creative breadth)',
+        'Used appropriate medium(s) with detailed annotations on each design',
+        'Annotations explain materials, dimensions, colors, features, and function',
+        'All designs are clear enough to be correctly interpreted by others'
+      ]
+    },
+    3: {
+      MYP1: [
+        'Clearly presented your chosen final design',
+        'Described the key features of the chosen design in detail',
+        'Explained or showed how the design will work/function',
+        'Design presentation is neat, clear, and complete'
+      ],
+      MYP3: [
+        'Clearly presented your chosen design with full detail',
+        'Outlined the reasons for choosing this design over others',
+        'Referenced the design specification to justify your selection',
+        'Shown how this design best meets the success criteria'
+      ],
+      MYP5: [
+        'Presented the chosen design with full detail and clarity',
+        'Justified your selection fully and critically against the design specification',
+        'Provided detailed references to specific success criteria in your justification',
+        'Explained why alternative designs were not chosen'
+      ]
+    },
+    4: {
+      MYP1: [
+        'Created a planning drawing or diagram showing how to make the solution',
+        'Outlined the main details needed for making (materials, tools, steps)',
+        'Plan is clear enough for someone else to understand',
+        'Included labels, dimensions, or annotations where needed'
+      ],
+      MYP3: [
+        'Developed accurate planning drawings or diagrams with proper detail',
+        'Outlined the requirements for creating the solution (materials, tools, equipment)',
+        'Drawings include dimensions, labels, and technical details',
+        'Plans are accurate and detailed enough for a peer to follow'
+      ],
+      MYP5: [
+        'Developed accurate and detailed planning drawings or diagrams',
+        'Included full technical details: dimensions, materials, tolerances, finishes',
+        'Outlined all requirements for creation (resources, equipment, software)',
+        'Plans are professional-quality and fully reproducible by someone else'
+      ]
+    }
+  },
+  C: {
+    1: {
+      MYP1: [
+        'Created a plan that outlines the steps for making your solution',
+        'Plan considers the use of resources (materials, tools) and time',
+        'Steps are clear and detailed enough for a classmate to follow',
+        'Plan is logically organized from start to finish'
+      ],
+      MYP3: [
+        'Constructed a logical plan with clear step-by-step instructions',
+        'Plan outlines the efficient use of time (includes a timeline or schedule)',
+        'Plan outlines the efficient use of resources (materials, equipment)',
+        'A peer could follow your plan to recreate the solution without help'
+      ],
+      MYP5: [
+        'Constructed a detailed, logical plan with clear sequential steps',
+        'Described (not just listed) the efficient use of time with a realistic schedule',
+        'Described the efficient use of resources, including materials, tools, and equipment',
+        'Plan is detailed and clear enough for any peer to follow independently'
+      ]
+    },
+    2: {
+      MYP1: [
+        'Demonstrated excellent technical skills while making your solution',
+        'Used tools, equipment, or software skillfully and safely',
+        'Showed high-quality craftsmanship or execution in the final product',
+        'Technical skills are appropriate and well-suited to the solution'
+      ],
+      MYP3: [
+        'Demonstrated excellent technical skills throughout the making process',
+        'Used tools, materials, or software with precision and confidence',
+        'Quality of work shows a high standard of craftsmanship',
+        'Technical skills are consistently strong across all aspects of the product'
+      ],
+      MYP5: [
+        'Demonstrated excellent technical skills throughout the making process',
+        'Showed mastery of tools, equipment, materials, or software used',
+        'Craftsmanship is of the highest standard with attention to fine details',
+        'Technical execution is consistent, precise, and professional-quality'
+      ]
+    },
+    3: {
+      MYP1: [
+        'Followed your plan to create the solution',
+        'The solution functions as intended (it works properly)',
+        'The solution is presented appropriately and looks complete',
+        'Final product matches what was planned in Criterion B'
+      ],
+      MYP3: [
+        'Followed your plan to create the solution',
+        'The solution functions as intended and meets the design brief',
+        'The solution is presented appropriately (neat, professional, complete)',
+        'Final product is fully functional and well-finished'
+      ],
+      MYP5: [
+        'Followed your plan to create the solution',
+        'The solution functions as intended and meets the design specification',
+        'The solution is presented appropriately and professionally',
+        'Product is complete, polished, and ready for the target audience'
+      ]
+    },
+    4: {
+      MYP1: [
+        'Listed the changes you made to the design or plan during making',
+        'Explained what you changed and what you originally planned',
+        'Documented changes as you went (not just at the end)',
+        'Included photos or evidence of changes where possible'
+      ],
+      MYP3: [
+        'Explained the changes made to both the design and plan during making',
+        'Gave clear reasons for why each change was necessary',
+        'Documented changes with evidence (photos, notes, screenshots)',
+        'Showed how changes affected the final outcome'
+      ],
+      MYP5: [
+        'Fully justified every change made to the design and plan during making',
+        'Provided detailed reasoning for each change (not just "it didn\'t work")',
+        'Supported justifications with evidence and critical thinking',
+        'Explained how changes improved the solution or resolved issues'
+      ]
+    }
+  },
+  D: {
+    1: {
+      MYP1: [
+        'Outlined simple but relevant testing methods for your solution',
+        'Testing methods generate actual data or results (not just opinions)',
+        'Tests are designed to measure whether the solution is successful',
+        'Included more than one testing method'
+      ],
+      MYP3: [
+        'Described detailed testing methods that are relevant to your solution',
+        'Testing methods generate accurate and meaningful data',
+        'Tests clearly measure the success of the solution against specifications',
+        'Testing methods are well-thought-out and thorough'
+      ],
+      MYP5: [
+        'Designed detailed and relevant testing methods (not just described them)',
+        'Testing methods generate reliable, measurable data',
+        'Tests directly measure success against each design specification',
+        'Testing plan is comprehensive and methodical'
+      ]
+    },
+    2: {
+      MYP1: [
+        'Outlined the success of your solution against the design specification',
+        'Used authentic product testing (real tests, not hypothetical)',
+        'Referenced actual test results and data in your evaluation',
+        'Clearly stated which criteria were met and which were not'
+      ],
+      MYP3: [
+        'Explained the success of your solution against the design specification',
+        'Used authentic product testing with real users or real conditions',
+        'Referenced specific data and results from your testing',
+        'Provided a balanced evaluation covering both successes and shortcomings'
+      ],
+      MYP5: [
+        'Critically evaluated the success of your solution (not just described it)',
+        'Evaluation is based on authentic product testing with real data',
+        'Weighed up strengths and limitations with specific evidence',
+        'Reached clear conclusions about the overall success of the solution'
+      ]
+    },
+    3: {
+      MYP1: [
+        'Outlined how the solution could be improved (not just one way)',
+        'Improvement suggestions are specific and realistic',
+        'Improvements are connected to your testing results',
+        'Considered different aspects that could be improved (function, aesthetics, usability)'
+      ],
+      MYP3: [
+        'Described how the solution could be improved in detail',
+        'Improvements are specific, actionable, and well-reasoned',
+        'Each suggestion is linked to evidence from your testing',
+        'Covered multiple areas for improvement'
+      ],
+      MYP5: [
+        'Explained how the solution could be improved with detailed reasoning',
+        'Each improvement suggestion is fully justified with evidence',
+        'Improvements are practical, specific, and demonstrate critical thinking',
+        'Considered short-term fixes and long-term redesign possibilities'
+      ]
+    },
+    4: {
+      MYP1: [
+        'Outlined the impact of your solution on the client or target audience',
+        'Considered both positive and negative impacts',
+        'Impact discussion is relevant and connected to your design problem',
+        'Showed awareness of how users would experience the product'
+      ],
+      MYP3: [
+        'Described the impact of your solution on the client or target audience',
+        'Discussed both positive impacts and potential negative consequences',
+        'Impact analysis shows understanding of the wider context',
+        'Considered social, environmental, or ethical implications where relevant'
+      ],
+      MYP5: [
+        'Explained the impact of your product on the client or target audience in detail',
+        'Provided a thorough analysis of positive and negative impacts',
+        'Considered social, ethical, environmental, and economic implications',
+        'Demonstrated deep, critical thinking about the broader consequences of the design'
+      ]
+    }
+  }
+};
+
+function selectCheckCri(cri) {
+  checkCri = cri;
+  playSound('hover');
+  updateCriPills('checkCriPills', cri);
+  renderChecklist();
+}
+
+function selectCheckStrand(s) {
+  checkStrand = s;
+  playSound('hover');
+  updateStrandPills('checkStrandPills', s);
+  renderChecklist();
+}
+
+function selectCheckYear(y) {
+  checkYear = y;
+  playSound('hover');
+  updateYearPills('checkYearPills', y);
+  renderChecklist();
+}
+
+function toggleCheck(key, el) {
+  checkedItems[key] = !checkedItems[key];
+  playSound('hover');
+  const card = el.closest('.checklist-card');
+  if (checkedItems[key]) {
+    card.classList.add('checked');
+  } else {
+    card.classList.remove('checked');
+  }
+  updateProgress();
+}
+
+function renderChecklist() {
+  // Update strand info box
+  const strandInfo = document.getElementById('checkStrandInfoBox');
+  strandInfo.className = `strand-info ${getCriClass(checkCri)}`;
+  strandInfo.querySelector('.strand-num').textContent = `STRAND ${checkStrand}`;
+  strandInfo.querySelector('.strand-title').textContent = strandNames[checkCri][checkStrand];
+
+  const container = document.getElementById('checklistContainer');
+  const criClass = 'cri-' + checkCri.toLowerCase() + '-check';
+  const items = checklistData[checkCri][checkStrand][checkYear];
+
+  container.innerHTML = items.map((text, i) => {
+    const key = `${checkCri}-${checkStrand}-${checkYear}-${i}`;
+    const isChecked = checkedItems[key] ? 'checked' : '';
+    return `
+      <div class="checklist-card ${criClass} ${isChecked}" onclick="toggleCheck('${key}', this)" style="animation: fadeUp 0.4s ${i * 0.06}s both">
+        <div class="check-box">${isChecked ? '✓' : ''}</div>
+        <div class="check-content">
+          <div class="check-text">${text}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  updateProgress();
+}
+
+function updateProgress() {
+  const container = document.getElementById('checklistContainer');
+  const cards = container.querySelectorAll('.checklist-card');
+  const total = cards.length;
+  const checked = container.querySelectorAll('.checklist-card.checked').length;
+
+  const fill = document.getElementById('progressFill');
+  const count = document.getElementById('progressCount');
+
+  const pct = total > 0 ? (checked / total) * 100 : 0;
+  fill.style.width = pct + '%';
+
+  const criColors = { A: 'var(--cri-a)', B: 'var(--cri-b)', C: 'var(--cri-c)', D: 'var(--cri-d)' };
+  fill.style.background = criColors[checkCri] || 'var(--text)';
+
+  count.textContent = `${checked} / ${total}`;
+}
+
+// ============================================
+// COMMAND TERMS GRID
+// ============================================
+function renderTerms() {
+  const container = document.getElementById('termsGrid');
+  const maxDepth = 7;
+  const depthColors = ['#888', '#7BA3CC', '#5BB8C5', '#5BB87B', '#B8A835', '#D48A35', '#D44B4B'];
+  const depthLabels = ['Basic', 'Simple', 'Moderate', 'Detailed', 'Complex', 'Advanced', 'Expert'];
+
+  container.innerHTML = displayTerms.map((t, i) => `
+    <div class="term-card" style="animation: fadeUp 0.4s ${i * 0.05}s both" onmouseenter="playSound('hover')">
+      <div class="term-word">${t.word}</div>
+      <div class="term-depth">
+        <div class="depth-bar" style="width:${(t.depth / maxDepth) * 100}%;background:${depthColors[t.depth - 1]}"></div>
+        <div class="depth-label">${depthLabels[t.depth - 1]}</div>
+      </div>
+      <div class="term-def">${t.def}</div>
+    </div>
+  `).join('');
+}
+
+// ============================================
+// TOOLTIP
+// ============================================
+function attachTermHovers() {
+  document.querySelectorAll('.cmd-term').forEach(el => {
+    el.addEventListener('mouseenter', (e) => {
+      const term = el.dataset.term.toLowerCase();
+      const info = commandTerms[term];
+      if (!info) return;
+      playSound('hover');
+      const tooltip = document.getElementById('cmdTooltip');
+      tooltip.querySelector('.tip-term').textContent = term.charAt(0).toUpperCase() + term.slice(1);
+      tooltip.querySelector('.tip-def').textContent = info.def;
+      tooltip.classList.add('visible');
+      positionTooltip(e);
+    });
+    el.addEventListener('mousemove', positionTooltip);
+    el.addEventListener('mouseleave', () => {
+      document.getElementById('cmdTooltip').classList.remove('visible');
+    });
+  });
+}
+
+function positionTooltip(e) {
+  const tooltip = document.getElementById('cmdTooltip');
+  let x = e.clientX + 16;
+  let y = e.clientY - 10;
+  if (x + 290 > window.innerWidth) x = e.clientX - 290;
+  if (y + 80 > window.innerHeight) y = e.clientY - 80;
+  tooltip.style.left = x + 'px';
+  tooltip.style.top = y + 'px';
+}
+
+// ============================================
+// MOBILE MENU
+// ============================================
+function toggleMobileMenu() {
+  const links = document.querySelector('.nav-links');
+  if (links.style.display === 'flex') {
+    links.style.display = 'none';
+  } else {
+    links.style.display = 'flex';
+    links.style.position = 'absolute';
+    links.style.top = '64px';
+    links.style.left = '0';
+    links.style.right = '0';
+    links.style.background = 'var(--nav-bg)';
+    links.style.backdropFilter = 'blur(20px)';
+    links.style.flexDirection = 'column';
+    links.style.padding = '12px';
+    links.style.borderBottom = '1px solid var(--border)';
+  }
+  playSound('click');
+}
+
+// ============================================
+// NAV ACTIVE STATE
+// ============================================
+function updateNav() {
+  const sections = ['explorer', 'progression', 'assessment', 'terms'];
+  const scrollY = window.scrollY + 200;
+
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const link = document.querySelector(`.nav-links a[href="#${id}"]`);
+    if (!link) return;
+
+    if (scrollY >= el.offsetTop && scrollY < el.offsetTop + el.offsetHeight) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+}
+
+window.addEventListener('scroll', updateNav);
+
+// ============================================
+// INIT
+// ============================================
+renderExplorer();
+renderProgression();
+renderChecklist();
+renderTerms();
+</script>
+</body>
+</html>
